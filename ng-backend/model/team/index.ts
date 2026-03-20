@@ -4,7 +4,6 @@ export * from './SubstitutionList';
 export * from './TeamStaff';
 export * from './Teamsheet';
 export * from './discipline/CardEvent';
-export * from './discipline/DisciplinaryReport';
 export * from './discipline/TeamDiscipline';
 export * from './players/PlayerEntry';
 export * from './players/PlayersList';
