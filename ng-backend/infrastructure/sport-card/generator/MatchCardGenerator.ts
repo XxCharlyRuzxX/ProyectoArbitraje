@@ -28,13 +28,13 @@ export class MatchCardGenerator extends SportCardGenerator {
             <p>
               Acta del partido de futbol de <strong>${matchInfo.competitionName}</strong>
               efectuado el <strong>${matchInfo.date.toLocaleDateString('es-MX')}</strong>
-              a las <strong>${matchInfo.time}</strong> hrs.
+              a las <strong>${matchInfo.date.toLocaleTimeString('es-MX')}</strong> hrs.
               En el campo <strong>${matchInfo.fieldName}</strong>
               en la ciudad de <strong>${matchInfo.city}</strong>
             </p>
             <p>
-              <strong>1er tiempo:</strong> ${matchInfo.firstHalfStart} hrs. &nbsp;
-              <strong>2do tiempo:</strong> ${matchInfo.secondHalfStart} hrs.
+              <strong>1er tiempo:</strong> ${matchInfo?.firstHalfStart ? `${matchInfo.firstHalfStart.toLocaleDateString('es-MX')} hrs. &nbsp;` : ''}
+              <strong>2do tiempo:</strong> ${matchInfo?.secondHalfStart ? `${matchInfo.secondHalfStart.toLocaleDateString('es-MX')} hrs.` : ''}
             </p>
           </section>
 
@@ -57,11 +57,11 @@ export class MatchCardGenerator extends SportCardGenerator {
           <section class="captains">
             <div class="captain-block">
               <p>_______________________</p>
-              <p>CAPITÁN — ${homeTeam.captain}</p>
+              <p>CAPITÁN — ${homeTeam.captain.firstname} ${homeTeam.captain.lastname}</p>
             </div>
             <div class="captain-block">
               <p>_______________________</p>
-              <p>CAPITÁN — ${awayTeam.captain}</p>
+              <p>CAPITÁN — ${awayTeam.captain.firstname} ${awayTeam.captain.lastname}</p>
             </div>
           </section>
 
