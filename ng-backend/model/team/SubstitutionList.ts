@@ -33,14 +33,14 @@ export default class SubstitutionList {
     substitution: Substitution,
     playersList: PlayersList,
   ): void {
-    if (!playersList.findByNumber(substitution.playerIn.jerseyNumber)) {
-      throw new Error(
-        `${substitution.playerIn.firstname} no está en el equipo.`,
-      );
-    }
     if (!playersList.findByNumber(substitution.playerOut.jerseyNumber)) {
       throw new Error(
         `${substitution.playerOut.firstname} no está en el equipo.`,
+      );
+    }
+    if (playersList.findByNumber(substitution.playerIn.jerseyNumber)) {
+      throw new Error(
+        `${substitution.playerIn.firstname} ya está en el campo como titular.`,
       );
     }
   }

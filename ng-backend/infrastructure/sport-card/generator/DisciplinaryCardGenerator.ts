@@ -1,11 +1,11 @@
 import { PDFOptions } from 'puppeteer';
 import { SportCardGenerator } from './SportCardGenerator';
 import CardEvent from '@model/team/discipline/CardEvent';
-import TeamDiscipline from '@model/team/discipline/TeamDiscipline';
+import Teamsheet from '@model/team/Teamsheet';
 
 export class DisciplinaryCardGenerator extends SportCardGenerator {
   protected buildHtml(): string {
-    const { refereeCrew, matchInfo, disciplinaryReport, observations } =
+    const { refereeCrew, matchInfo, awayTeam, homeTeam, observations } =
       this.data;
 
     return `
@@ -22,14 +22,14 @@ export class DisciplinaryCardGenerator extends SportCardGenerator {
           </section>
 
           <section class="discipline">
-            ${this.renderTeamDiscipline(disciplinaryReport.homeDiscipline)}
-            ${this.renderTeamDiscipline(disciplinaryReport.awayDiscipline)}
+            ${this.renderTeamDiscipline(awayTeam)}
+            ${this.renderTeamDiscipline(homeTeam)}
           </section>
 
           <section class="incidents">
             <h3>Incidentes</h3>
             <p class="incident-text">
-              ${observations.length ? observations.join('<br/>') : 'Sin incidentes.'}
+              ${observations?.length ? observations.join('<br/>') : 'Sin incidentes.'}
             </p>
             <p class="reserve-note">
               Me reservo el derecho de ampliar mi informe arbitral en caso de ser necesario.
@@ -46,15 +46,15 @@ export class DisciplinaryCardGenerator extends SportCardGenerator {
     `;
   }
 
-  private renderTeamDiscipline(discipline: TeamDiscipline): string {
+  private renderTeamDiscipline(team: Teamsheet): string {
     return `
       <div class="team-discipline">
-        <h3>Equipo: ${discipline.teamName}</h3>
+        <h3>Equipo: ${team.teamName}</h3>
 
         <h4>Amonestados</h4>
         ${
-          discipline.yellowCards.length
-            ? discipline.yellowCards
+          team.discipline.yellowCards.length
+            ? team.discipline.yellowCards
                 .map((e) => this.renderCardEvent(e))
                 .join('')
             : '<p class="empty">Ninguno</p>'
@@ -62,8 +62,10 @@ export class DisciplinaryCardGenerator extends SportCardGenerator {
 
         <h4>Expulsados</h4>
         ${
-          discipline.redCards.length
-            ? discipline.redCards.map((e) => this.renderCardEvent(e)).join('')
+          team.discipline.redCards.length
+            ? team.discipline.redCards
+                .map((e) => this.renderCardEvent(e))
+                .join('')
             : '<p class="empty">Ninguno</p>'
         }
       </div>

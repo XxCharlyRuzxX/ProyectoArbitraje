@@ -18,13 +18,13 @@ export default class SportCard {
     awayTeam: Teamsheet,
     observations?: string[],
   ) {
-    this.validateTeams();
     this.idCard = idCard;
     this.refereeCrew = refereeCrew;
     this.matchInfo = matchInfo;
     this.homeTeam = homeTeam;
     this.awayTeam = awayTeam;
     this.observations = observations;
+    this.validateTeams();
   }
 
   private validateTeams(): void {

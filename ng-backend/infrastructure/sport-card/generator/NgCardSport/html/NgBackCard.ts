@@ -10,7 +10,7 @@ export class NgBackCard {
   }
 
   private buildPage2Html(): string {
-    const { refereeCrew, disciplinaryReport, observations, matchInfo } =
+    const { refereeCrew, observations, matchInfo, awayTeam, homeTeam } =
       this.data;
 
     return `
@@ -31,11 +31,11 @@ export class NgBackCard {
           </div>
           <div class="p2-cards-block">
             <span class="p2-label">AMONESTADOS:</span>
-            ${this.renderCardsList(disciplinaryReport.homeDiscipline.yellowCards)}
+            ${this.renderCardsList(homeTeam.discipline.yellowCards)}
           </div>
           <div class="p2-cards-block">
             <span class="p2-label">EXPULSADOS:</span>
-            ${this.renderCardsList(disciplinaryReport.homeDiscipline.redCards)}
+            ${this.renderCardsList(homeTeam.discipline.redCards)}
           </div>
         </div>
 
@@ -47,11 +47,11 @@ export class NgBackCard {
           </div>
           <div class="p2-cards-block">
             <span class="p2-label">AMONESTADOS:</span>
-            ${this.renderCardsList(disciplinaryReport.awayDiscipline.yellowCards)}
+            ${this.renderCardsList(awayTeam.discipline?.yellowCards)}
           </div>
           <div class="p2-cards-block">
             <span class="p2-label">EXPULSADOS:</span>
-            ${this.renderCardsList(disciplinaryReport.awayDiscipline.redCards)}
+            ${this.renderCardsList(awayTeam.discipline?.redCards)}
           </div>
         </div>
 
@@ -66,7 +66,7 @@ export class NgBackCard {
           </div>
           <ul class="p2-incidents-list">
             ${
-              observations.length
+              observations?.length
                 ? observations.map((o) => `<li>${o}</li>`).join('')
                 : '<li class="p2-none">No hubo incidentes.</li>'
             }

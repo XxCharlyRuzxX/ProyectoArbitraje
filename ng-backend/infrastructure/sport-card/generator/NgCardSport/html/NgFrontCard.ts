@@ -27,39 +27,39 @@ export class NgFrontCard {
             <div class="header-title">COLEGIO DE ÁRBITROS NUEVA GENERACIÓN</div>
             <div class="official-line">
               <span class="official-label">ÁRBITRO</span>
-              <span class="official-value">${refereeCrew.referee}</span>
+              <span class="official-value">${refereeCrew?.referee ?? ''}</span>
             </div>
             <div class="official-line">
               <span class="official-label">ÁRBITRO asistente 1</span>
-              <span class="official-value">${refereeCrew.assistant1}</span>
+              <span class="official-value">${refereeCrew?.assistant1 ?? ''}</span>
             </div>
             <div class="official-line">
               <span class="official-label">ÁRBITRO asistente 2</span>
-              <span class="official-value">${refereeCrew.assistant2}</span>
+              <span class="official-value">${refereeCrew?.assistant2 ?? ''}</span>
             </div>
             <div class="official-line">
               <span class="official-label">4º oficial</span>
-              <span class="official-value">${refereeCrew.fourthOfficial}</span>
+              <span class="official-value">${refereeCrew?.fourthOfficial ?? ''}</span>
             </div>
           </div>
         </div>
         <div class="acta-section">
           <span>Acta del partido de futbol de</span>
-          <span class="field-inline">${matchInfo.competitionName}</span>
+          <span class="field-inline">${matchInfo?.competitionName ?? ''}</span>
           <span>efectuado el</span>
-          <span class="field-inline">${matchInfo.date.getDate()}</span>
+          <span class="field-inline">${matchInfo?.date ? matchInfo.date.getDate() : ''}</span>
           <span>de</span>
-          <span class="field-inline">${matchInfo.date.toLocaleString('es-MX', { month: 'long' })}</span>
+          <span class="field-inline">${matchInfo?.date ? matchInfo.date.toLocaleString('es-MX', { month: 'long' }) : ''}</span>
           <span>de 20</span>
-          <span class="field-inline" style="min-width:30px">${String(matchInfo.date.getFullYear()).slice(-2)}</span>
+          <span class="field-inline" style="min-width:30px">${matchInfo?.date ? String(matchInfo.date.getFullYear()).slice(-2) : ''}</span>
           <span>a las</span>
-          <span class="field-inline">${matchInfo.time}</span>
+          <span class="field-inline">${matchInfo?.date ? matchInfo.date.toLocaleString('es-MX', { hour: '2-digit', minute: '2-digit' }) : ''}</span>
           <span>hrs. En el campo</span>
-          <span class="field-inline">${matchInfo.fieldName}</span>
+          <span class="field-inline">${matchInfo?.fieldName ?? ''}</span>
           <span>en la ciudad de</span>
-          <span class="field-inline">${matchInfo.city}</span>
+          <span class="field-inline">${matchInfo?.city ?? ''}</span>
           <span>entre los equipos</span>
-          <span class="field-inline">${homeTeam.teamName} vs ${awayTeam.teamName}</span>
+          <span class="field-inline">${homeTeam?.teamName ?? ''} vs ${awayTeam?.teamName ?? ''}</span>
         </div>
         <div class="teams-wrapper">
           ${this.renderTeamTable(homeTeam)}
@@ -78,11 +78,11 @@ export class NgFrontCard {
         </div>
         <div class="staff-section">
           <div class="staff-left">
-            <div class="staff-line">${homeTeam.staff.coach}</div>
-            <div class="staff-line">${homeTeam.staff.doctor}</div>
-            <div class="staff-line">${homeTeam.staff.fitnessCoach}</div>
-            <div class="staff-line">${homeTeam.staff.assistants[0] ?? ''}</div>
-            <div class="staff-line">${homeTeam.staff.assistants[1] ?? ''}</div>
+            <div class="staff-line">${homeTeam?.staff?.coach ?? ''}</div>
+            <div class="staff-line">${homeTeam?.staff?.doctor ?? ''}</div>
+            <div class="staff-line">${homeTeam?.staff?.fitnessCoach ?? ''}</div>
+            <div class="staff-line">${homeTeam?.staff?.assistants?.[0] ?? ''}</div>
+            <div class="staff-line">${homeTeam?.staff?.assistants?.[1] ?? ''}</div>
           </div>
           <div class="staff-center">
             <span>ENTRENADOR</span>
@@ -92,22 +92,22 @@ export class NgFrontCard {
             <span>AUXILIAR</span>
           </div>
           <div class="staff-right">
-            <div class="staff-line">${awayTeam.staff.coach}</div>
-            <div class="staff-line">${awayTeam.staff.doctor}</div>
-            <div class="staff-line">${awayTeam.staff.fitnessCoach}</div>
-            <div class="staff-line">${awayTeam.staff.assistants[0] ?? ''}</div>
-            <div class="staff-line">${awayTeam.staff.assistants[1] ?? ''}</div>
+            <div class="staff-line">${awayTeam?.staff?.coach ?? ''}</div>
+            <div class="staff-line">${awayTeam?.staff?.doctor ?? ''}</div>
+            <div class="staff-line">${awayTeam?.staff?.fitnessCoach ?? ''}</div>
+            <div class="staff-line">${awayTeam?.staff?.assistants?.[0] ?? ''}</div>
+            <div class="staff-line">${awayTeam?.staff?.assistants?.[1] ?? ''}</div>
           </div>
         </div>
         <div class="total-section">
-          <span class="total-value">${matchInfo.score.homeScore}</span>
+          <span class="total-value">${matchInfo?.score?.homeScore ?? ''}</span>
           <span>TOTAL TANTOS</span>
-          <span class="total-value">${matchInfo.score.awayScore}</span>
+          <span class="total-value">${matchInfo?.score?.awayScore ?? ''}</span>
         </div>
         <div class="tiempos-section">
           <div class="tiempos-left">
-            <p>El primer tiempo empezó a las <span class="field-short">${matchInfo.firstHalfStart}</span> Hrs.</p>
-            <p>El segundo tiempo empezó a las <span class="field-short">${matchInfo.secondHalfStart}</span> Hrs.</p>
+            <p>El primer tiempo empezó a las <span class="field-short">${matchInfo?.firstHalfStart ? matchInfo.firstHalfStart.toLocaleString('es-MX', { hour: '2-digit', minute: '2-digit' }) : ''}</span> Hrs.</p>
+            <p>El segundo tiempo empezó a las <span class="field-short">${matchInfo?.secondHalfStart ? matchInfo.secondHalfStart.toLocaleString('es-MX', { hour: '2-digit', minute: '2-digit' }) : ''}</span> Hrs.</p>
           </div>
         </div>
         <div class="captains-section">
@@ -127,14 +127,14 @@ export class NgFrontCard {
 
   private renderTeamTable(team: Teamsheet): string {
     const rows = Array.from({ length: 11 }, (_, i) => {
-      const player = team.players.getPlayers()[i];
+      const player = team?.players?.getPlayers?.()[i];
       return player
         ? `<tr>
-              <td class="num">${player.jerseyNumber}</td>
-              <td>${player.lastname}</td>
-              <td>${player.firstname}</td>
-              <td class="goals">${player.goalMinutes.length || ''}</td>
-              <td class="min">${player.goalMinutes.join(',')}</td>
+              <td class="num">${player.jerseyNumber ?? ''}</td>
+              <td>${player.lastname ?? ''}</td>
+              <td>${player.firstname ?? ''}</td>
+              <td class="goals">${player.goalMinutes?.length || ''}</td>
+              <td class="min">${player.goalMinutes?.join(',') ?? ''}</td>
             </tr>`
         : `<tr>
               <td class="num"></td><td></td><td></td>
@@ -144,7 +144,7 @@ export class NgFrontCard {
 
     return `
         <div class="team-block">
-          <div class="team-title">${team.teamName}</div>
+          <div class="team-title">${team?.teamName ?? ''}</div>
           <table class="players-table">
             <colgroup>
               <col class="col-num">
@@ -166,17 +166,17 @@ export class NgFrontCard {
 
   private renderCambios(team: Teamsheet): string {
     const rows = Array.from({ length: 5 }, (_, i) => {
-      const sub = team.substitutions.getSubstitutions()[i];
+      const sub = team?.substitutions?.getSubstitutions?.()[i];
       return sub
         ? `<tr>
-              <td class="col-num">${sub.playerIn.jerseyNumber}</td>
-              <td class="col-name">${sub.playerIn.lastname} ${sub.playerIn.firstname}</td>
-              <td class="col-num">${sub.playerOut.jerseyNumber}</td>
-              <td class="col-small">${sub.minute}'</td>
+              <td class="col-num">${sub.playerIn?.jerseyNumber ?? ''}</td>
+              <td class="col-name">${sub.playerIn?.lastname ?? ''} ${sub.playerIn?.firstname ?? ''}</td>
+              <td class="col-num">${sub.playerOut?.jerseyNumber ?? ''}</td>
+              <td class="col-small">${sub.minute ? sub.minute + "'" : ''}</td>
             </tr>
             <tr>
               <td class="col-num"></td>
-              <td class="col-name">${sub.playerOut.lastname} ${sub.playerOut.firstname}</td>
+              <td class="col-name">${sub.playerOut?.lastname ?? ''} ${sub.playerOut?.firstname ?? ''}</td>
               <td class="col-num"></td>
               <td class="col-small"></td>
             </tr>`
