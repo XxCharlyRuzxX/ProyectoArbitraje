@@ -3,7 +3,6 @@ import { IsInt, IsString, IsArray, IsNumber, Min, Max } from 'class-validator';
 export class PlayerEntryDto {
   @IsInt()
   @Min(0)
-  @Max(99)
   jerseyNumber: number;
 
   @IsString()

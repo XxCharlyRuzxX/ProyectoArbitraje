@@ -1,22 +1,6 @@
-import {
-  IsString,
-  IsDate,
-  IsInt,
-  IsOptional,
-  Min,
-  ValidateNested,
-} from 'class-validator';
+import { IsString, IsDate, IsOptional, ValidateNested } from 'class-validator';
 import { Type } from 'class-transformer';
-
-export class ScoreDto {
-  @IsInt()
-  @Min(0)
-  homeScore: number;
-
-  @IsInt()
-  @Min(0)
-  awayScore: number;
-}
+import ScoreDto from './score.dto';
 
 export class MatchInfoDto {
   @IsString()
