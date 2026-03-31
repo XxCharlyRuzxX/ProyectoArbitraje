@@ -1,4 +1,4 @@
-import { View, Text, TouchableOpacity } from "react-native";
+import { View, Text, TouchableOpacity, Image } from "react-native";
 import { useRouter } from "expo-router";
 
 
@@ -13,7 +13,11 @@ export default function HomeScreen() {
       <Text className="text-sm text-neutral-400 mb-10">
         Sistema de actas deportivas
       </Text>
-
+      <Image
+      className="aspect-square w-full p-10"
+      source={{ uri: "https://cdn-icons-png.flaticon.com/512/26/26846.png" }}
+      />
+        <View className="justify-end flex-1 mb-10">
         <TouchableOpacity
           className="h-14 bg-blue-500 rounded-2xl items-center justify-center"
           onPress={() => router.push("/SportCardScreen")}
@@ -22,6 +26,7 @@ export default function HomeScreen() {
           + Nueva acta
         </Text>
       </TouchableOpacity>
+      </View>
     </View>
   );
 }

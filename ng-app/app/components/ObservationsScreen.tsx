@@ -1,12 +1,14 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Controller, useForm } from "react-hook-form";
 import { ScrollView, Text, TouchableOpacity, View } from "react-native";
-
 import Field from "./forms/Field";
 import StyledInput from "./forms/StyledInput";
-import { ObservationsForm, ObservationsFormSchema } from "../schemas/sport-card-forms";
+import {
+  ObservationsForm,
+  ObservationsFormSchema,
+} from "../schemas/sport-card-forms";
 import { ZodError } from "zod";
-import Toast from "react-native-toast-message";
+import { UseToast } from "../hooks/UseToast";
 
 type ObservationsScreenProps = {
   initialData?: ObservationsForm;
@@ -57,20 +59,11 @@ export default function ObservationsScreen({
         onNext(data);
       })();
     } catch (error) {
-      console.error("Excepción lanzada por Zod/schema:", error);
-
       const errorMessage =
         error instanceof ZodError
-          ? error.issues.map((issue) => issue.message).join(", ")
+          ? error.issues[0].message
           : "Ocurrió un error desconocido";
-
-      Toast.show({
-        type: "error",
-        text1: "Campos inválidos",
-        text2: errorMessage,
-        position: "bottom",
-        bottomOffset: 40,
-      });
+      UseToast().error(errorMessage, "Campos inválidos");
     }
   };
 

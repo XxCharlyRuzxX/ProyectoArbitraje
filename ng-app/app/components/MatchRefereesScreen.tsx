@@ -5,7 +5,7 @@ import Field from "./forms/Field";
 import StyledInput from "./forms/StyledInput";
 import { RefereeCrew, RefereeCrewSchema } from "../schemas/sport-card";
 import { ZodError } from "zod";
-import Toast from "react-native-toast-message";
+import { UseToast } from "../hooks/UseToast";
 
 type MatchRefereesScreenProps = {
   initialData?: Partial<RefereeCrew>;
@@ -44,16 +44,10 @@ export default function MatchRefereesScreen({
 
       const errorMessage =
         error instanceof ZodError
-          ? error.issues.map((issue) => issue.message).join(", ")
+          ? error.issues[0].message
           : "Ocurrió un error desconocido";
 
-      Toast.show({
-        type: "error",
-        text1: "Campos inválidos",
-        text2: errorMessage,
-        position: "bottom",
-        bottomOffset: 40,
-      });
+      UseToast().error(errorMessage, "Campos inválidos");
     }
   };
 

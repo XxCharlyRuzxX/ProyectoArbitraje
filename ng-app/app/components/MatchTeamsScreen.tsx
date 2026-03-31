@@ -1,13 +1,12 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Controller, useFieldArray, useForm, useWatch } from "react-hook-form";
 import { ScrollView, Text, TouchableOpacity, View } from "react-native";
-
 import Field from "./forms/Field";
 import StyledInput from "./forms/StyledInput";
 import { TeamForm, TeamFormSchema } from "../schemas/sport-card-forms";
 import { PlayerEntry } from "../schemas/sport-card";
 import { ZodError } from "zod";
-import Toast from "react-native-toast-message";
+import { UseToast } from "../hooks/UseToast";
 
 type MatchTeamsScreenProps = {
   title: string;
@@ -179,16 +178,10 @@ export default function TeamScreen({
 
       const errorMessage =
         error instanceof ZodError
-          ? error.issues.map((issue) => issue.message).join(", ")
+          ? error.issues[0].message
           : "Ocurrió un error desconocido";
 
-      Toast.show({
-        type: "error",
-        text1: "Campos inválidos",
-        text2: errorMessage,
-        position: "bottom",
-        bottomOffset: 40,
-      });
+      UseToast().error(errorMessage, "Campos inválidos");
     }
   };
 

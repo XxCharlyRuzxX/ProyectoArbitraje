@@ -24,16 +24,39 @@ export const DisciplineFormSchema = z.object({
   description: z.string().min(1, "La descripción es requerida"),
 });
 
-export const MatchInfoFormSchema = z.object({
-  competitionName: z.string().min(1, "La competición es requerida"),
-  date: z.string().min(1, "La fecha es requerida"),
-  fieldName: z.string().min(1, "La cancha es requerida"),
-  city: z.string().min(1, "La ciudad es requerida"),
-  state: z.string().min(1, "El estado es requerido"),
-  firstHalfStart: z.string().optional(),
-  secondHalfStart: z.string().optional(),
-  score: ScoreSchema,
-});
+export const MatchInfoFormSchema = z
+  .object({
+    competitionName: z.string().min(1, "La competición es requerida"),
+    date: z.string().min(1, "La fecha es requerida"),
+    fieldName: z.string().min(1, "La cancha es requerida"),
+    city: z.string().min(1, "La ciudad es requerida"),
+    state: z.string().min(1, "El estado es requerido"),
+    firstHalfStart: z.string().optional(),
+    secondHalfStart: z.string().optional(),
+    score: ScoreSchema,
+  })
+  .refine(
+    (data) => {
+      if (data.firstHalfStart && data.secondHalfStart) {
+        return data.secondHalfStart > data.firstHalfStart;
+      }
+      return true;
+    },
+    {
+      message: "El segundo tiempo debe iniciar después del primero.",
+      path: ["secondHalfStart"],
+    },
+  )
+  .refine(
+    (data) => {
+      if (data.secondHalfStart && !data.firstHalfStart) return false;
+      return true;
+    },
+    {
+      message: "No puede haber segundo tiempo sin primero.",
+      path: ["secondHalfStart"],
+    },
+  );
 
 export const TeamFormSchema = z
   .object({

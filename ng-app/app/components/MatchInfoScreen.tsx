@@ -9,8 +9,8 @@ import {
   MatchInfoForm,
   MatchInfoFormSchema,
 } from "../schemas/sport-card-forms";
-import Toast from "react-native-toast-message";
 import { ZodError } from "zod";
+import { UseToast } from "../hooks/UseToast";
 
 type MatchInfoScreenProps = {
   initialData?: Partial<MatchInfoForm>;
@@ -52,20 +52,11 @@ export default function MatchInfoScreen({
         onNext(data);
       })();
     } catch (error) {
-      console.error("Excepción lanzada por Zod/schema:", error);
-
       const errorMessage =
         error instanceof ZodError
-          ? error.issues.map((issue) => issue.message).join(", ")
+          ? error.issues[0].message
           : "Ocurrió un error desconocido";
-
-      Toast.show({
-        type: "error",
-        text1: "Campos inválidos",
-        text2: errorMessage,
-        position: "bottom",
-        bottomOffset: 40,
-      });
+      UseToast().error(errorMessage, "Campos inválidos");
     }
   };
 

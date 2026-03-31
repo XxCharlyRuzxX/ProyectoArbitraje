@@ -8,7 +8,7 @@ import {
 } from "react-native";
 import { SportCard } from "../schemas/sport-card";
 import { generatePdf } from "../services/SportCardPdfService";
-import Toast from "react-native-toast-message";
+import { UseToast } from "../hooks/UseToast";
 
 type SportCardGenerateScreenProps = {
   payload: SportCard | null;
@@ -29,23 +29,16 @@ export default function SportCardGenerateScreen({
 
       await generatePdf(payload);
 
-      Toast.show({
-        type: "success",
-        text1: "PDF generado",
-        text2: `Archivo guardado correctamente`,
-        position: "bottom",
-        bottomOffset: 40,
-      });
+      UseToast().success(
+        "La cédula se ha generado correctamente",
+        "PDF generado",
+      );
     } catch (error) {
-      Toast.show({
-        type: "error",
-        text1: "Error al generar el PDF",
-        text2: error instanceof Error ? error.message : "Error al generar el PDF",
-        position: "bottom",
-        bottomOffset: 40,
-      });
-    }
-      finally {
+      UseToast().error(
+        error instanceof Error ? error.message : "No se pudo generar el PDF",
+        "Error al generar el PDF",
+      );
+    } finally {
       setIsSubmitting(false);
     }
   };
